@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulador de AFDs (Definindo Inicial e Finais)</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+        input, button, select { margin: 5px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #4f62f3; color: white; font-weight: bold; cursor: pointer; }
+        .dfa-diagram { background-color: #e6ecff; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; }
+        .state { display: inline-block; background-color: #677cf4; color: white; border-radius: 50%; width: 40px; height: 40px; line-height: 40px; text-align: center; margin: 0 10px; }
+        .state.active { background-color: #000; }
+        .result { margin-top: 20px; }
+        .rejected { color: #ff0000; font-weight: bold; }
+        .debug { background-color: #fbeaea; border: 1px solid #e0a5a5; padding: 10px; margin-top: 10px; border-radius: 4px; }
+    </style>  
+</head>
+<body>
+
+<h1>Simulador de AFDs Personalizados</h1>
+
+<!-- Entrada da string -->
+<label for="inputString">Digite a string:</label>
+<input type="text" id="inputString" placeholder="Ex: 0010">
+<br>
+
+<!-- Escolher o AFD -->
+<label for="afdSelect">Escolha o AFD base:</label>
+<select id="afdSelect">
+    <option value="1">Termina com 0</option>
+    <option value="2">Número par de 0s</option>
+    <option value="3">Exatamente dois 1s</option>
+    <option value="4">Começa e termina com mesmo símbolo</option>
+</select>
+<br>
+
+<!-- Definir estado inicial -->
+<label for="startState">Estado Inicial:</label>
+<input type="text" id="startState" placeholder="Ex: q0">
+<br>
+
+<!-- Definir estados finais -->
+<label for="acceptStates">Estados de Aceitação (separados por vírgula):</label>
+<input type="text" id="acceptStates" placeholder="Ex: q1,q2">
+<br>
+
+<button onclick="testDFA()">Testar</button>
+
+<h3>DFA Definida:</h3>
+<div class="dfa-diagram">
+    <span class="state active">q0</span>
+    <span>→</span>
+    <span class="state">q1</span>
+    <span>→</span>
+    <span class="state">q2</span>
+    <span>→</span>
+    <span class="state">q3</span>
+</div>
+
+<h3>Histórico de testes:</h3>
+<div id="history">
+    <!-- Histórico será atualizado dinamicamente -->
+</div>
+
+<div class="result">
+    <strong>Resultado do teste:</strong>
+    <p id="result" class="rejected">🔴 Rejeitada</p>
+</div>
+
+<div class="debug">
+    <strong>Painel de Debug:</strong>
+    <p id="debug">Motivo da exclusão: Não há transição definida.</p>
+</div>
+
+<script>
+// AFDs pré-definidos
+const dfas = {
+    1: {
+        transitions: {
+            "q0,0": "q1",
+            "q0,1": "q0",
+            "q1,0": "q1",
+            "q1,1": "q0"
+        }
+    },
+    2: {
+        transitions: {
+            "q0,0": "q1",
+            "q0,1": "q0",
+            "q1,0": "q0",
+            "q1,1": "q1"
+        }
+    },
+    3: {
+        transitions: {
+            "q0,0": "q0",
+            "q0,1": "q1",
+            "q1,0": "q1",
+            "q1,1": "q2",
+            "q2,0": "q2",
+            "q2,1": "q3",
+            "q3,0": "q3",
+            "q3,1": "q3"
+        }
+    },
+    4: {
+        transitions: {
+            "q0,0": "q1",
+            "q0,1": "q2",
+            "q1,0": "q1",
+            "q1,1": "q1",
+            "q2,0": "q2",
+            "q2,1": "q2"
+        }
+    }
+};
+
+// Função para simular
+function simulateDFA(transitions, startState, acceptStates, inputStr) {
+    let state = startState;
+    for (let symbol of inputStr) {
+        const transitionKey = `${state},${symbol}`;
+        if (transitions[transitionKey]) {
+            state = transitions[transitionKey];
+        } else {
+            document.getElementById("debug").innerText = `Motivo da exclusão: Não há transição definida de ${state} com entrada ${symbol}`;
+            return false;
+        }
+    }
+    return acceptStates.includes(state);
+}
+
+// Função chamada no botão
+function testDFA() {
+    const inputStr = document.getElementById("inputString").value;
+    const selectedDFA = document.getElementById("afdSelect").value;
+    const startState = document.getElementById("startState").value.trim();
+    const acceptStatesInput = document.getElementById("acceptStates").value.trim();
+    const acceptStates = acceptStatesInput.split(",").map(s => s.trim());
+
+    const dfa = dfas[selectedDFA];
+
+    if (!startState || acceptStates.length === 0) {
+        document.getElementById("result").innerText = "❗ Defina o estado inicial e os estados finais.";
+        return;
+    }
+
+    const isAccepted = simulateDFA(dfa.transitions, startState, acceptStates, inputStr);
+    document.getElementById("result").innerText = isAccepted ? "✅ Aceito!" : "❌ Rejeitado!";
+}
+</script>
+
+</body>
+</html>

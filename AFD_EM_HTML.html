@@ -24,6 +24,7 @@
     <option value="2">Número par de 0s</option>
     <option value="3">Exatamente dois 1s</option>
     <option value="4">Começa e termina com mesmo símbolo</option>
+    <option value="5">A quinta AFD </option>
 </select>
 <br>
 
@@ -80,6 +81,20 @@ const dfas = {
             "q1,1": "q1",
             "q2,0": "q2",
             "q2,1": "q2"
+        }
+    },
+    5: {
+        transitions: {
+            "q0,0": "q1",
+            "q0,1": "q3",
+            "q1,0": "q1",
+            "q1,1": "q2",
+            "q2,0": "q1",
+            "q2,1": "q2",
+            "q3,0": "q4",
+            "q3,1": "q3",
+            "q4,0": "q4",
+            "q4,1": "q3"
         }
     }
 };

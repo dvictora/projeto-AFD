@@ -1,0 +1,136 @@
+.gear-spinner {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 9999;
+  animation: float 3s ease-in-out infinite;
+}
+
+.gear-spinner img {
+  width: 100%;
+  height: 100%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
+}
+
+
+
+
+body {
+  font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fc;
+  background-image: url('images/FUNDO ABSTRATO.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #333;
+  padding: 50px;
+  max-width: 1200px;
+  font-size: 18px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 30px;
+  font-weight: 600;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #4f46e5;
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 18px;
+  margin-top: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4338ca;
+}
+
+.result-box {
+  background: #eef1fa;
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 40px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+.dfa-path {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-weight: bold;
+  flex-wrap: wrap;
+}
+
+.dfa-state {
+  padding: 12px 18px;
+  border-radius: 50%;
+  background-color: #6366f1;
+  color: white;
+  font-size: 18px;
+}
+
+.dfa-state.final {
+  background-color: black;
+}
+
+#result {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.accepted {
+  color: green;
+}
+
+.rejected {
+  color: red;
+}
+
+#testHistory .accepted {
+  color: green;
+  font-weight: bold;
+}
+
+#testHistory .rejected {
+  color: red;
+  font-weight: bold;
+}

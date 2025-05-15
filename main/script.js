@@ -1,87 +1,117 @@
 const dfas = {
-    1: {
-      transitions: {
-        "q0,0": "q1",
-        "q0,1": "q0",
-        "q1,0": "q1",
-        "q1,1": "q0"
-      },
+  1: {
+    transitions: {
+      "q0,0": "q1",
+      "q0,1": "q0",
+      "q1,0": "q1",
+      "q1,1": "q0",
     },
-    2: {
-      transitions: {
-        "q0,0": "q1",
-        "q0,1": "q0",
-        "q1,0": "q0",
-        "q1,1": "q1"
-      },
+  },
+  2: {
+    transitions: {
+      "q0,0": "q1",
+      "q0,1": "q0",
+      "q1,0": "q0",
+      "q1,1": "q1",
     },
-    3: {
-      transitions: {
-        "q0,0": "q0",
-        "q0,1": "q1",
-        "q1,0": "q1",
-        "q1,1": "q2",
-        "q2,0": "q2",
-        "q2,1": "q3",
-        "q3,0": "q3",
-        "q3,1": "q3"
-      },
-      
+  },
+  3: {
+    transitions: {
+      "q0,0": "q0",
+      "q0,1": "q1",
+      "q1,0": "q1",
+      "q1,1": "q2",
+      "q2,0": "q2",
+      "q2,1": "q3",
+      "q3,0": "q3",
+      "q3,1": "q3",
     },
-    4: {
-      transitions: {
-        "q0,a": "q1",
-        "q0,b": "q2",
-        "q1,a": "q1",
-        "q1,b": "q1",
-        "q2,a": "q2",
-        "q2,b": "q2"
-      },
+  },
+  4: {
+    transitions: {
+      "q0,a": "q1",
+      "q0,b": "q2",
+      "q1,a": "q1",
+      "q1,b": "q1",
+      "q2,a": "q2",
+      "q2,b": "q2",
     },
-    5: {
-      transitions: {
-          "q0,0": "q1",
-          "q0,1": "q3",
-          "q1,0": "q1",
-          "q1,1": "q2",
-          "q2,0": "q1",
-          "q2,1": "q2",
-          "q3,0": "q4",
-          "q3,1": "q3",
-          "q4,0": "q4",
-          "q4,1": "q3"
+  },
+  5: {
+    transitions: {
+      "q0,0": "q1",
+      "q0,1": "q3",
+      "q1,0": "q1",
+      "q1,1": "q2",
+      "q2,0": "q1",
+      "q2,1": "q2",
+      "q3,0": "q4",
+      "q3,1": "q3",
+      "q4,0": "q4",
+      "q4,1": "q3",
     },
-  }
-  };
+  },
+};
 
-  function simulateDFA(transitions, startState, acceptStates, inputStr) {
-    let state = startState;
-    const history = [state];
+// Simula o funcionamento de um DFA
+function simulateDFA(transitions, startState, acceptStates, inputStr) {
+  let state = startState;
+  const history = [state];
 
-    for (let symbol of inputStr) {
-      const key = `${state},${symbol}`;
-      if (transitions[key]) {
-        state = transitions[key];
-        history.push(state);
-      } else {
-        return { accepted: false, history };
-      }
+  for (let symbol of inputStr) {
+    const key = `${state},${symbol}`;
+    if (transitions[key]) {
+      state = transitions[key];
+      history.push(state);
+    } else {
+      return { accepted: false, history };
     }
-    return { accepted: acceptStates.includes(state), history };
   }
+  return { accepted: acceptStates.includes(state), history };
+}
 
-  function testDFA() {
+// Função para adicionar resultados ao histórico de testes
+function addTestResult(result) {
+  const testHistory = document.getElementById("testHistory");
+  const newItem = document.createElement("li");
+  newItem.textContent = result;
+
+  testHistory.appendChild(newItem);
+
+  // Limitar o número de itens a 5
+  while (testHistory.children.length > 5) {
+    testHistory.removeChild(testHistory.firstChild);
+  }
+}
+
+// Função principal para testar o DFA
+function testDFA() {
   const inputStr = document.getElementById("inputString").value.trim();
-  const selectedDFA = document.getElementById("afdSelect").value; // Obtenha o valor selecionado diretamente
+  const selectedDFA = document.getElementById("afdSelect").value;
   const startStateInput = document.getElementById("startState").value.trim();
   const acceptStatesInput = document.getElementById("acceptStates").value.trim();
 
+  // Validação de entrada
+  if (!selectedDFA) {
+    alert("Por favor, selecione um AFD.");
+    return;
+  }
+  if (!inputStr) {
+    alert("Por favor, insira uma string de entrada.");
+    return;
+  }
+
   const dfaConfig = dfas[selectedDFA];
+  if (!dfaConfig) {
+    alert("Configuração do AFD não encontrada.");
+    return;
+  }
+
   const transitions = dfaConfig.transitions;
-  const startState = startStateInput || dfaConfig.defaultStartState;
+  const startState = startStateInput || "q0"; // Estado inicial padrão
   const acceptStates = acceptStatesInput
     ? acceptStatesInput.split(",").map((s) => s.trim())
-    : dfaConfig.defaultAcceptStates;
+    : ["q1"]; // Estados de aceitação padrão
 
   const { accepted, history } = simulateDFA(
     transitions,
@@ -90,7 +120,7 @@ const dfas = {
     inputStr
   );
 
-  // Atualizar histórico de estados
+  // Atualizar Visualização de estados
   const historyUl = document.getElementById("history");
   historyUl.innerHTML = "";
   history.forEach((state) => {
@@ -100,17 +130,14 @@ const dfas = {
   });
 
   // Adicionar resultado ao histórico de testes
-  const testHistoryUl = document.getElementById("testHistory");
-  const resultItem = document.createElement("li");
-  resultItem.textContent = `String: "${inputStr}" - Resultado: ${
+  const resultText = `String: "${inputStr}" - Resultado: ${
     accepted ? "Aceita" : "Rejeitada"
   }`;
-  resultItem.className = accepted ? "accepted" : "rejected";
-  testHistoryUl.appendChild(resultItem);
-  };
-  
+  addTestResult(resultText);
+}
 
-  document.getElementById("afdSelect").addEventListener("change", function () {
+// Atualizar imagem do DFA com base na seleção
+document.getElementById("afdSelect").addEventListener("change", function () {
   const selectedValue = this.value;
   const dfaImage = document.getElementById("dfaImage");
 

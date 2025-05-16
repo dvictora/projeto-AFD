@@ -1,3 +1,7 @@
+# Teste de um AFD (Autômato Finito Determinístico) em Python
+# Este código simula um AFD que aceita a linguagem L = {w ∈ {0, 1}* | w contém o mesmo número de 0s e 1s}.
+# O AFD tem 5 estados e transições definidas para cada símbolo do alfabeto {0, 1}.
+
 dfa5 = {
     "states": {"q0", "q1", "q2", "q3", "q4"},
     "alphabet": {"0", "1"},

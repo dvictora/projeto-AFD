@@ -1,3 +1,6 @@
+// Este arquivo contém a lógica para simular autômatos finitos determinísticos (AFDs) e atualizar a interface do usuário.
+// AFD's pré-definidos em "const dfas".
+
 const dfas = {
   1: {
     transitions: {
@@ -53,7 +56,7 @@ const dfas = {
   },
 };
 
-// Simula o funcionamento de um DFA
+// A função `simulateDFA` simula o funcionamento de um AFD com base nas transições, estado inicial e estados de aceitação fornecidos.
 function simulateDFA(transitions, startState, acceptStates, inputStr) {
   let state = startState;
   const history = [state];
@@ -71,11 +74,12 @@ function simulateDFA(transitions, startState, acceptStates, inputStr) {
 }
 
 // Função para adicionar resultados ao histórico de testes
-function addTestResult(result) {
+function addTestResult(result, accepted,) {
   const testHistory = document.getElementById("testHistory");
   const newItem = document.createElement("li");
   newItem.textContent = result;
-
+  newItem.className = accepted ? "accepted" : "rejected"; // Adiciona a classe de cor
+ 
   testHistory.appendChild(newItem);
 
   // Limitar o número de itens a 5
@@ -133,7 +137,7 @@ function testDFA() {
   const resultText = `String: "${inputStr}" - Resultado: ${
     accepted ? "Aceita" : "Rejeitada"
   }`;
-  addTestResult(resultText);
+  addTestResult(resultText, accepted,);
 }
 
 // Atualizar imagem do DFA com base na seleção

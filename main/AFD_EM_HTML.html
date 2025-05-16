@@ -16,6 +16,8 @@
 
   <h1><b>🧠 Simulador de AFDs</b></h1>
 
+  <!-- Fase de coleta de dados -->
+   
   <label for="inputString">Escreva a sua string:</label>
   <input type="text" id="inputString" placeholder="ex.: 0101010" />
 
@@ -26,6 +28,7 @@
   <input type="text" id="acceptStates" placeholder="ex.: q1,q2" />
 
   <label for="afdSelect">Escolha o AFD base:</label>
+  <!-- AFDs disponíveis para teste -->
   <select id="afdSelect">
     <option value="" disabled selected>Selecione uma opção</option>
     <option value="1">Termina com 0</option>
@@ -41,13 +44,14 @@
     <h3>
       <h3>DFA Definida:</h3>
       <img id="dfaImage" src="images/gif.gif" alt="DFA Definida" style="max-width: 100%; height: auto;">
+      <!-- O grafico da AFD vai ser exibido aqui -->
     </h3>
     <div class="dfa-path">
     </div>
 
     <h3>Visualização de Estados:</h3>
     <ul id="history">
-      <!-- O acompanhamento vão ser listados aqui -->
+      <!-- O acompanhamento vai ser listados aqui -->
     </ul>
 
     <h3>Histórico dos Testes Realizados:</h3>

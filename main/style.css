@@ -136,3 +136,42 @@ button:hover {
   color: red;
   font-weight: bold;
 }
+
+/* Responsividade básica */
+body {
+  padding: 5vw;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+.result-box {
+  padding: 5vw 3vw;
+  margin-top: 5vw;
+}
+
+input, select, button {
+  font-size: 4vw;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 7vw;
+}
+
+@media (min-width: 600px) {
+  body {
+    padding: 50px;
+    max-width: 1200px;
+  }
+  h1 {
+    font-size: 36px;
+  }
+  input, select, button {
+    font-size: 18px;
+  }
+  .result-box {
+    padding: 30px;
+    margin-top: 40px;
+  }
+}

@@ -12,7 +12,11 @@ Este projeto tem como objetivo implementar e demonstrar o funcionamento de um Au
    ```
 2. Acesse a pasta do projeto:
    ```
+   2. Acesse a pasta do projeto:
+   ```
    cd projeto-AFD
+   ```
+   *(Se já estiver na pasta, pode pular este passo.)*
    ```
 3. Siga as instruções específicas do projeto para executar o código (consulte a documentação ou o arquivo principal).
 

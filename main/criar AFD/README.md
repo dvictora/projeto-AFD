@@ -25,3 +25,29 @@ O projeto contém os seguintes arquivos:
 ## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests para melhorias e correções.
+
+# Dados para teste 
+
+**Estados (separados por vírgula):**
+´´´
+q0,q1,q2
+´´´
+**Alfabeto (separado por vírgula):**
+```
+0,1
+```
+**Estado inicial**
+```
+q0
+```
+**Estados de Aceitação**
+```
+qi,q2
+```
+**Transições (formato: estado,símbolo=destino;...):**
+```
+q0,0=q1;q0,1=q0;q1,0=q2;q1,1=q1;q2,0=q2;q2,1=q2
+```
+**String de teste:**
+ 
+ ex (010101) (011111)(000101)

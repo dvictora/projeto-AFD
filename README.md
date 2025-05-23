@@ -11,7 +11,7 @@ Este projeto tem como objetivo implementar e demonstrar o funcionamento de um Au
    git clone https://github.com/dvictora/projeto-AFD.git
    ```
 2. Acesse a pasta com vscode (projeto-AFD ou projeto-AFD-main):
-   ``
+   ``´
    cd main
    ```
    start index.html

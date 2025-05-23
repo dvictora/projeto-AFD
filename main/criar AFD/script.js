@@ -11,12 +11,7 @@ function simularAFD(estados, alfabeto, inicial, finais, transicoes, entrada) {
   return finais.includes(estadoAtual);
 }
 
-document.getElementById('afdForm').onsubmit = function(e) {
-  e.preventDefault();
-
-  // Coleta dos dados do formulário
-  const estados = document.getElementById('states').value.split(',').map(s => s.trim());
-  const alfabeto = document.getElementById('alphabet').value.split(',').map(s => s.trim());
+function testarAFD() {
   const inicial = document.getElementById('start').value.trim();
   const finais = document.getElementById('accept').value.split(',').map(s => s.trim());
   const transicoesInput = document.getElementById('transitions').value.split(';');
@@ -28,14 +23,38 @@ document.getElementById('afdForm').onsubmit = function(e) {
     if (t.trim() === '') continue;
     let [esq, dest] = t.split('=');
     let [origem, simbolo] = esq.split(',');
-    transicoes[origem.trim() + ',' + simbolo.trim()] = dest.trim();
+    transicoes[origem.trim() + ',' + simbolo.trim()] = dest.trim().trim();
   }
 
-  // Simula o AFD
-  const resultado = simularAFD(estados, alfabeto, inicial, finais, transicoes, entrada);
+  function simulateDFA(transitions, startState, acceptStates, inputStr) {
+    let state = startState.trim();
+    const history = [state];
 
-  // Mostra o resultado
-  document.getElementById('afdResult').innerText = resultado
-    ? 'A string foi ACEITA pelo AFD!'
-    : 'A string foi REJEITADA pelo AFD.';
-};
+    for (let symbol of inputStr) {
+      const key = `${state},${symbol}`;
+      if (transitions[key]) {
+        state = transitions[key].trim();
+        history.push(state);
+      } else {
+        return { accepted: false, history };
+      }
+    }
+    // Garante que a comparação não falhe por espaços extras
+    return { accepted: acceptStates.map(s => s.trim()).includes(state), history };
+  }
+
+  const resultado = simulateDFA(transicoes, inicial, finais, entrada);
+
+  const resultMsg = resultado.accepted
+    ? 'A string foi <b>ACEITA</b> pelo AFD!'
+    : 'A string foi <b>REJEITADA</b> pelo AFD.';
+  const caminho = resultado.history.join(' → ');
+  const li = document.createElement('li');
+  li.innerHTML = `${resultMsg} Caminho: ${caminho}`;
+  const afdResult = document.getElementById('afdResult');
+  afdResult.appendChild(li);
+
+  while (afdResult.children.length > 5) {
+    afdResult.removeChild(afdResult.firstChild);
+  }
+}

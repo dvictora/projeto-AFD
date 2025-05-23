@@ -22,21 +22,16 @@
     <input type="text" id="transitions" placeholder="ex: q0,0=q1;q1,1=q0" required><br>
     <label>String de teste:</label>
     <input type="text" id="testString" placeholder="ex: 0101" required><br>
-    <button type="submit">Testar AFD</button>
+    <button type="button" onclick="testarAFD()">Testar AFD</button>
   </form>
-  <div id="afdResult"></div>
-   <script src="script.js"></script>
-
+  <div>
    <div class="result-box">
-    <h3>Visualização de Estados:</h3>
-    <ul id="history">
-      <!-- O acompanhamento vai ser listados aqui -->
+
+      <h3>Histórico dos Testes Realizados:</h3>
+      <ul id="afdResult">
+      <!-- Resultados dos testes serão adicionados aqui -->
     </ul>
-
-    <h3>Histórico dos Testes Realizados:</h3>
-    <ul id="testHistory">
-    <!-- Resultados dos testes serão adicionados aqui -->
-  </ul>
-
+  </div>
+   <script src="script.js"></script>
 </body>
 </html>

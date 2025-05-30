@@ -28,14 +28,14 @@ document.addEventListener('DOMContentLoaded', function() {
       {
         selector: 'node.inicial',
         style: {
-          'border-width': 3,
+          'border-width': 4,
           'border-color': '#4CAF50'
         }
       },
       {
         selector: 'node.final',
         style: {
-          'border-width': 3,
+          'border-width': 4,
           'border-color': '#FF5722'
         }
       },
@@ -153,8 +153,12 @@ function atualizarCanvas() {
   cy.nodes().forEach(node => {
     node.removeClass('inicial');
     node.removeClass('final');
-    if (node.id() === estadoInicial) node.addClass('inicial');
-    if (estadosFinais.includes(node.id())) node.addClass('final');
+  });
+  if (estadoInicial) {
+    cy.$id(estadoInicial).addClass('inicial');
+  }
+  estadosFinais.forEach(final => {
+    cy.$id(final).addClass('final');
   });
 
   // Reaplica o layout para organizar

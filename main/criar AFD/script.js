@@ -66,9 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Manipula cliques nos nós para criar transições
   cy.on('tap', 'node', function(evt) {
     if (!criandoTransicao) return;
-    
+
     const noClicado = evt.target;
-    
+
     if (noOrigemTransicao === null) {
       // Primeiro clique - definir origem
       noOrigemTransicao = noClicado;
@@ -76,12 +76,18 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       // Segundo clique - definir destino
       const simbolo = prompt("Digite o símbolo da transição:");
-      if (simbolo && simbolo.trim() !== '') {
-        const chave = `${noOrigemTransicao.id()},${simbolo.trim()}`;
-        transicoes[chave] = noClicado.id();
-        atualizarCanvas();
+      const alfabeto = document.getElementById('alfabeto').value.split(',').map(s => s.trim());
+      if (!simbolo || !alfabeto.includes(simbolo.trim())) {
+        alert("Símbolo inválido ou fora do alfabeto!");
+        noOrigemTransicao.style('border-color', '#fff');
+        noOrigemTransicao = null;
+        criandoTransicao = false;
+        return;
       }
-      
+      const chave = `${noOrigemTransicao.id()},${simbolo.trim()}`;
+      transicoes[chave] = noClicado.id();
+      atualizarCanvas(); // Só atualiza aqui, após o segundo clique
+
       // Reseta o modo de transição
       noOrigemTransicao.style('border-color', '#fff');
       noOrigemTransicao = null;
@@ -93,36 +99,65 @@ document.addEventListener('DOMContentLoaded', function() {
 // Função para atualizar a visualização do AFD
 function atualizarCanvas() {
   if (!cy) return;
-  // Limpa todos os elementos existentes
-  cy.elements().remove();
 
-  // Adiciona os nós (estados)
+  // Adiciona apenas novos nós
   estados.forEach(estado => {
-    cy.add({
-      group: 'nodes',
-      data: { id: estado, label: estado },
-      classes: [
-        estado === estadoInicial ? 'inicial' : '',
-        estadosFinais.includes(estado) ? 'final' : ''
-      ].join(' ')
-    });
+    if (cy.$id(estado).length === 0) {
+      cy.add({
+        group: 'nodes',
+        data: { id: estado, label: estado },
+        classes: [
+          estado === estadoInicial ? 'inicial' : '',
+          estadosFinais.includes(estado) ? 'final' : ''
+        ].join(' ')
+      });
+    }
   });
 
-  // Adiciona as arestas (transições)
+  // Remove nós que não existem mais
+  cy.nodes().forEach(node => {
+    if (!estados.includes(node.id())) {
+      cy.remove(node);
+    }
+  });
+
+  // Adiciona apenas novas arestas
   Object.entries(transicoes).forEach(([key, destino]) => {
     const [origem, simbolo] = key.split(',');
-    cy.add({
-      group: 'edges',
-      data: { 
-        id: `${origem}-${destino}-${simbolo}`,
-        source: origem, 
-        target: destino, 
-        label: simbolo 
-      }
-    });
+    const edgeId = `${origem}-${destino}-${simbolo}`;
+    if (cy.$id(edgeId).length === 0) {
+      cy.add({
+        group: 'edges',
+        data: { 
+          id: edgeId,
+          source: origem, 
+          target: destino, 
+          label: simbolo 
+        }
+      });
+    }
   });
 
-  // Aplica um layout para organizar os nós
+  // Remove arestas que não existem mais
+  cy.edges().forEach(edge => {
+    const origem = edge.source().id();
+    const destino = edge.target().id();
+    const simbolo = edge.data('label');
+    const key = `${origem},${simbolo}`;
+    if (!transicoes[key] || transicoes[key] !== destino) {
+      cy.remove(edge);
+    }
+  });
+
+  // Atualiza classes dos nós (inicial/final)
+  cy.nodes().forEach(node => {
+    node.removeClass('inicial');
+    node.removeClass('final');
+    if (node.id() === estadoInicial) node.addClass('inicial');
+    if (estadosFinais.includes(node.id())) node.addClass('final');
+  });
+
+  // Reaplica o layout para organizar
   cy.layout({ name: 'circle' }).run();
 }
 
@@ -150,9 +185,16 @@ function ativarModoTransicao() {
     alert("Adicione pelo menos dois estados para criar uma transição!");
     return;
   }
+  // Verifica se o usuário já pediu para não mostrar novamente
+  if (!localStorage.getItem('naoMostrarAlertaTransicao')) {
+    // Mostra o alerta com opção de não mostrar novamente
+    const naoMostrar = confirm("Modo de criação de transição ativado. Clique no estado de origem e depois no estado de destino.\n\nMarque OK para não mostrar novamente.");
+    if (naoMostrar) {
+      localStorage.setItem('naoMostrarAlertaTransicao', '1');
+    }
+  }
   criandoTransicao = true;
   noOrigemTransicao = null;
-  alert("Modo de criação de transição ativado. Clique no estado de origem e depois no estado de destino.");
 }
 
 // Definir Estado Inicial
@@ -202,8 +244,14 @@ function limparTudo() {
 
 // Testar String
 function testarString() {
+  const alfabeto = document.getElementById('alfabeto').value.split(',').map(s => s.trim());
   const entrada = document.getElementById('entrada').value.trim();
-  
+
+  if (!validarStringComAlfabeto(entrada, alfabeto)) {
+    document.getElementById('log').innerText = "A string de entrada contém símbolos fora do alfabeto permitido!";
+    return;
+  }
+
   if (!estadoInicial) {
     alert("Defina um estado inicial primeiro!");
     return;
@@ -272,4 +320,34 @@ function testarString() {
       return;
     }
   }, 800);
+}
+
+// Função para validar string com alfabeto
+function validarStringComAlfabeto(str, alfabeto) {
+  for (let c of str) {
+    if (!alfabeto.includes(c)) return false;
+  }
+  return true;
+}
+
+function criarTransicao() {
+  const alfabeto = document.getElementById('alfabeto').value.split(',').map(s => s.trim());
+  const origem = prompt("Estado de origem:");
+  const simbolo = prompt("Símbolo:");
+  const destino = prompt("Estado de destino:");
+  if (!origem || !destino || !simbolo) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+  if (!estados.includes(origem.trim()) || !estados.includes(destino.trim())) {
+    alert("Estados de origem/destino inválidos!");
+    return;
+  }
+  if (!alfabeto.includes(simbolo.trim())) {
+    alert("Símbolo não pertence ao alfabeto definido!");
+    return;
+  }
+  const chave = `${origem.trim()},${simbolo.trim()}`;
+  transicoes[chave] = destino.trim();
+  atualizarCanvas();
 }

@@ -1,70 +1,105 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
+  background: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 h1 {
-    color: #333;
-    text-align: center;
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin: 40px 0 30px 0;
+  letter-spacing: 1px;
 }
-
-label {
-    display: block;
-    margin: 10px 0 5px;
+.main-area {
+  border: 2px solid #000;
+  border-radius: 16px;
+  background: #fff;
+  padding: 40px 32px 32px 32px;
+  width: 900px;
+  max-width: 98vw;
+  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 40px;
 }
-
-input[type="text"], select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
 }
-
-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+.btn-group .btn {
+  border-radius: 8px;
+  border: 1.5px solid #000;
+  font-weight: 500;
+  background: #fff;
+  color: #222;
+  transition: background 0.2s, color 0.2s;
 }
-
-button:hover {
-    background-color: #218838;
+.btn-group .btn.active, .btn-group .btn:focus {
+  background: #0084FF;
+  color: #fff;
+  border-color: #0084FF;
 }
-
-.result-box {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 15px;
-    margin-top: 20px;
+.canvas-area {
+  border: 2px solid #000;
+  border-radius: 12px;
+  min-height: 320px;
+  background: #fff;
+  margin-bottom: 32px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.dfa-path {
-    margin-top: 10px;
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 0;
 }
-
-h3 {
-    color: #333;
+.input-area label {
+  font-weight: 500;
+  font-size: 1.1rem;
 }
-
-ul {
-    list-style-type: none;
-    padding: 0;
+.input-area input {
+  width: 320px;
+  border-radius: 8px;
+  border: 1.5px solid #000;
+  font-size: 1.1rem;
+  padding: 8px 12px;
 }
-
-ul li {
-    background-color: #e9ecef;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 4px;
+.input-area .btn-primary {
+  background: #0084FF;
+  border: 1.5px solid #0084FF;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 8px 32px;
+  transition: background 0.2s;
 }
-
+.input-area .btn-primary:hover {
+  background: #005fcc;
+  border-color: #005fcc;
+}
+@media (max-width: 1000px) {
+  .main-area {
+    width: 98vw;
+    padding: 16px 4vw;
+  }
+}
+@media (max-width: 600px) {
+  .main-area {
+    padding: 8px 2vw;
+  }
+  .input-area input {
+    width: 100px;
+  }
+}
 
 body {
   font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;

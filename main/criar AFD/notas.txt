@@ -1,0 +1,71 @@
+<script>
+    let states = [];
+    let transitions = {};
+    let currentId = 0;
+    let selectedState = null;
+
+    function addState() {
+      const id = "q" + currentId++;
+      states.push({ id, final: false });
+      transitions[id] = {};
+      const div = document.createElement("div");
+      div.className = "state";
+      div.innerText = id;
+      div.id = id;
+      div.onclick = () => selectState(id);
+      document.getElementById("states").appendChild(div);
+    }
+
+    function selectState(id) {
+      selectedState = id;
+      document.querySelectorAll('.state').forEach(el => el.classList.remove('selected'));
+      document.getElementById(id).classList.add('selected');
+
+      const symbol = prompt("Informe o símbolo de entrada (ex: 0 ou 1):");
+      const target = prompt("Informe o estado de destino (ex: q0, q1...):");
+      if (transitions[selectedState]) {
+        transitions[selectedState][symbol] = target;
+        renderTransitions();
+      }
+    }
+
+    function markFinal() {
+      if (selectedState) {
+        states.find(s => s.id === selectedState).final = true;
+        document.getElementById(selectedState).classList.add('final');
+      }
+    }
+
+    function renderTransitions() {
+      const div = document.getElementById("transitions");
+      div.innerHTML = "<h3>Transições:</h3>";
+      for (let from in transitions) {
+        for (let symbol in transitions[from]) {
+          div.innerHTML += `<div class="transition">${from} --${symbol}--> ${transitions[from][symbol]}</div>`;
+        }
+      }
+    }
+
+    function testString() {
+      const input = document.getElementById("inputString").value;
+      let current = "q0";
+      let accepted = false;
+
+      for (let char of input) {
+        if (!transitions[current] || !transitions[current][char]) {
+          log(`Transição inválida a partir de ${current} com entrada '${char}'.`);
+          return;
+        }
+        current = transitions[current][char];
+      }
+
+      const state = states.find(s => s.id === current);
+      accepted = state && state.final;
+
+      log(`Estado final alcançado: ${current}. String ${accepted ? "ACEITA" : "REJEITADA"}.`);
+    }
+
+    function log(message) {
+      document.getElementById("log").innerText = message;
+    }
+  </script>

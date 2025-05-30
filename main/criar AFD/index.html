@@ -7,31 +7,33 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🛠️ Criar e Testar Meu Próprio AFD</h1>
-  <a href="../index.html">← Voltar ao simulador</a>
-  <form id="afdForm">
-    <label>Estados (separados por vírgula):</label>
-    <input type="text" id="states" placeholder="ex: q0,q1,q2" required><br>
-    <label>Alfabeto (separado por vírgula):</label>
-    <input type="text" id="alphabet" placeholder="ex: 0,1" required><br>
-    <label>Estado inicial:</label>
-    <input type="text" id="start" placeholder="ex: q0" required><br>
-    <label>Estados de aceitação:</label>
-    <input type="text" id="accept" placeholder="ex: q1,q2" required><br>
-    <label>Transições (formato: estado,símbolo=destino;...):</label>
-    <input type="text" id="transitions" placeholder="ex: q0,0=q1;q1,1=q0" required><br>
-    <label>String de teste:</label>
-    <input type="text" id="testString" placeholder="ex: 0101" required><br>
-    <button type="button" onclick="testarAFD()">Testar AFD</button>
-  </form>
-  <div>
-   <div class="result-box">
-
-      <h3>Histórico dos Testes Realizados:</h3>
-      <ul id="afdResult">
-      <!-- Resultados dos testes serão adicionados aqui -->
-    </ul>
+  <h1>Criar e Testar AFD</h1>
+  <div class="input-area" style="margin-bottom: 32px; background: #f8f9fa; padding: 18px 32px; border-radius: 12px; box-shadow: 0 1px 4px #0001;">
+    <label for="entrada-top" class="form-label" style="font-weight:bold;">Defina a string:</label>
+    <input type="text" class="form-control" id="entrada-top" placeholder="Defina a string, ex: 0,1" />
   </div>
-   <script src="script.js"></script>
+  <div class="main-area">
+    <div class="btn-group">
+      <button class="btn" onclick="adicionarEstado()">Adicionar Estado +</button>
+      <button class="btn" onclick="ativarModoTransicao()">Criar Transição</button>
+      <button class="btn" onclick="definirInicial()">Definir Inicial ◇</button>
+      <button class="btn" onclick="definirFinal()">Definir Final ◇</button>
+      <button class="btn" onclick="limparTudo()">Limpar ⨉</button>
+    </div>
+    <div id="canvas" class="canvas-area" style="width:900px; height:500px;"></div>
+      <!-- Visualização do AFD será renderizada aqui -->
+    </div>
+    <div class="input-area">
+      <label for="entrada" class="form-label">Entrada:</label>
+      <input type="text" class="form-control" id="entrada" placeholder="Ex: 0101">
+      <button class="btn btn-primary" onclick="testarString()">Executar</button>
+    </div>
+  </div>
+  <div id="states"></div>
+  <div id="transitions"></div>
+  <div id="log"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

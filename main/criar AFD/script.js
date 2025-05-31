@@ -40,6 +40,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       },
       {
+        selector: 'node.visitado',
+        style: {
+          'background-color': '#4CAF50'
+        }
+      },
+      {
+        selector: 'node.aceito',
+        style: {
+          'background-color': '#8BC34A'
+        }
+      },
+      {
+        selector: 'node.rejeitado',
+        style: {
+          'background-color': '#FF5722'
+        }
+      },
+      {
         selector: 'edge',
         style: {
           'width': 2,
@@ -72,14 +90,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (noOrigemTransicao === null) {
       // Primeiro clique - definir origem
       noOrigemTransicao = noClicado;
-      noClicado.style('border-color', 'red');
+      noClicado.addClass('visitado');
     } else {
       // Segundo clique - definir destino
       const simbolo = prompt("Digite o símbolo da transição:");
       const alfabeto = document.getElementById('alfabeto').value.split(',').map(s => s.trim());
       if (!simbolo || !alfabeto.includes(simbolo.trim())) {
         alert("Símbolo inválido ou fora do alfabeto!");
-        noOrigemTransicao.style('border-color', '#fff');
+        noOrigemTransicao.removeClass('visitado');
         noOrigemTransicao = null;
         criandoTransicao = false;
         return;
@@ -89,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
       atualizarCanvas(); // Só atualiza aqui, após o segundo clique
 
       // Reseta o modo de transição
-      noOrigemTransicao.style('border-color', '#fff');
+      noOrigemTransicao.removeClass('visitado');
       noOrigemTransicao = null;
       criandoTransicao = false;
     }
@@ -273,53 +291,51 @@ function testarString() {
   
   let estadoAtual = estadoInicial;
   const caminho = [estadoAtual];
-  
-  // Destaque o estado inicial
-  cy.$(`#${estadoAtual}`).style('background-color', '#4CAF50');
-  
-  // Simula passo a passo com delay para animação
+
+  // Remove classe visitado de todos antes de começar
+  cy.nodes().removeClass('visitado');
+  // Destaca o estado inicial
+  cy.$id(estadoAtual).addClass('visitado');
+
   let i = 0;
   const interval = setInterval(() => {
     if (i >= entrada.length) {
       clearInterval(interval);
-      
-      // Verifica se terminou em estado final
+
       const aceito = estadosFinais.includes(estadoAtual);
-      
-      // Destaque o estado final
-      cy.$(`#${estadoAtual}`).style('background-color', aceito ? '#8BC34A' : '#FF5722');
-      
+      // Destaca o estado final (aceito ou rejeitado)
+      cy.$id(estadoAtual).addClass(aceito ? 'aceito' : 'rejeitado');
+
       setTimeout(() => {
         alert(`A string foi ${aceito ? 'ACEITA' : 'REJEITADA'}!\nCaminho: ${caminho.join(' → ')}`);
-        
-        // Resetar cores
-        cy.nodes().style('background-color', '#666');
+        // Remove destaques temporários
+        cy.nodes().removeClass('visitado aceito rejeitado');
       }, 500);
-      
+
       return;
     }
-    
+
     const simbolo = entrada[i];
     const chave = `${estadoAtual},${simbolo}`;
-    
+
     if (transicoes[chave]) {
       // Remove destaque do estado atual
-      cy.$(`#${estadoAtual}`).style('background-color', '#666');
-      
+      cy.$id(estadoAtual).removeClass('visitado');
+
       // Atualiza para o próximo estado
       estadoAtual = transicoes[chave];
       caminho.push(estadoAtual);
-      
-      // Destaque o novo estado atual
-      cy.$(`#${estadoAtual}`).style('background-color', '#4CAF50');
-      
+
+      // Destaca o novo estado atual
+      cy.$id(estadoAtual).addClass('visitado');
+
       i++;
     } else {
       clearInterval(interval);
-      cy.$(`#${estadoAtual}`).style('background-color', '#FF5722');
+      cy.$id(estadoAtual).addClass('rejeitado');
       alert(`Transição não definida para (${estadoAtual}, ${simbolo})`);
       setTimeout(() => {
-        cy.nodes().style('background-color', '#666');
+        cy.nodes().removeClass('visitado aceito rejeitado');
       }, 500);
       return;
     }

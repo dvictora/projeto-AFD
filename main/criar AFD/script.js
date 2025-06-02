@@ -14,35 +14,35 @@ document.addEventListener('DOMContentLoaded', function() {
       {
         selector: 'node',
         style: {
-          'background-color': '#666',
+          'background-color': '#bad2e9', 
           'label': 'data(label)',
           'text-valign': 'center',
           'text-halign': 'center',
-          'width': 40,
-          'height': 40,
-          'border-width': 2,
-          'border-color': '#fff',
-          'font-size': '12px'
+          'width': 50,
+          'height': 50,
+          'border-width': 1,
+          'border-color': '#000',
+          'font-size': '17px'
         }
       },
       {
         selector: 'node.inicial',
         style: {
           'border-width': 4,
-          'border-color': '#4CAF50'
+          'border-color': '#1cc422'
         }
       },
       {
         selector: 'node.final',
         style: {
           'border-width': 4,
-          'border-color': '#FF5722'
+          'border-color': '#e00808'
         }
       },
       {
         selector: 'node.visitado',
         style: {
-          'background-color': '#4CAF50'
+          'background-color': '#1cc422'
         }
       },
       {
@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', function() {
         selector: 'edge',
         style: {
           'width': 2,
-          'line-color': '#999',
-          'target-arrow-color': '#999',
+          'line-color': '#000',
+          'target-arrow-color': '#000',
           'target-arrow-shape': 'triangle',
           'curve-style': 'bezier',
           'label': 'data(label)',
-          'font-size': '10px',
+          'font-size': '17px',
           'text-background-color': '#fff',
           'text-background-opacity': 1,
           'text-background-padding': '2px'
@@ -320,7 +320,7 @@ function testarString() {
         alert(`A string foi ${aceito ? 'ACEITA' : 'REJEITADA'}!\nCaminho: ${caminho.join(' → ')}`);
         // Remove destaques temporários
         cy.nodes().removeClass('visitado aceito rejeitado');
-      }, 500);
+      }, 150);
 
       return;
     }
@@ -346,7 +346,7 @@ function testarString() {
       alert(`Transição não definida para (${estadoAtual}, ${simbolo})`);
       setTimeout(() => {
         cy.nodes().removeClass('visitado aceito rejeitado');
-      }, 500);
+      }, 150);
       return;
     }
   }, 800);

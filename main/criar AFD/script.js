@@ -1,11 +1,11 @@
 // Variáveis globais para armazenar o AFD
-let estados = []; // Ex: ["q0", "q1"]
-let transicoes = {}; // Ex: { "q0,0": "q1", "q1,1": "q0" }
+let estados = [];
+let transicoes = {};
 let estadoInicial = null;
 let estadosFinais = [];
-let cy; // Variável global para o Cytoscape
+let cy;
+let nodePositions = {}; // NOVO: armazena posições dos nós
 
-// Inicializa o Cytoscape quando a página carrega
 document.addEventListener('DOMContentLoaded', function() {
   cy = cytoscape({
     container: document.getElementById('canvas'),
@@ -74,12 +74,19 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ],
     layout: {
-      name: 'circle'
+      name: 'preset',
+      fit: true,
+      padding: 30
     }
   });
 
-  // Atualiza o canvas inicialmente
   atualizarCanvas();
+
+  // Permite arrastar nós e salva posição
+  cy.on('dragfree', 'node', function(event) {
+    const node = event.target;
+    nodePositions[node.id()] = node.position();
+  });
 
   // Manipula cliques nos nós para criar transições
   cy.on('tap', 'node', function(evt) {
@@ -118,52 +125,41 @@ document.addEventListener('DOMContentLoaded', function() {
 function atualizarCanvas() {
   if (!cy) return;
 
-  // Adiciona apenas novos nós
-  estados.forEach(estado => {
-    if (cy.$id(estado).length === 0) {
-      cy.add({
-        group: 'nodes',
-        data: { id: estado, label: estado },
-        classes: [
-          estado === estadoInicial ? 'inicial' : '',
-          estadosFinais.includes(estado) ? 'final' : ''
-        ].join(' ')
-      });
-    }
-  });
-
-  // Remove nós que não existem mais
+  // Salva as posições atuais dos nós antes de remover
   cy.nodes().forEach(node => {
-    if (!estados.includes(node.id())) {
-      cy.remove(node);
-    }
+    nodePositions[node.id()] = node.position();
   });
 
-  // Adiciona apenas novas arestas
+  cy.elements().remove();
+
+  // Adiciona os nós (estados) com suas posições salvas ou novas posições
+  estados.forEach(estado => {
+    const posicao = nodePositions[estado] || {
+      x: 300 + (Math.random() * 100 - 50),
+      y: 200 + (Math.random() * 100 - 50)
+    };
+
+    cy.add({
+      group: 'nodes',
+      data: { id: estado, label: estado },
+      position: posicao
+    });
+  });
+
+  // Adiciona as arestas (transições)
   Object.entries(transicoes).forEach(([key, destino]) => {
     const [origem, simbolo] = key.split(',');
     const edgeId = `${origem}-${destino}-${simbolo}`;
     if (cy.$id(edgeId).length === 0) {
       cy.add({
         group: 'edges',
-        data: { 
+        data: {
           id: edgeId,
-          source: origem, 
-          target: destino, 
-          label: simbolo 
+          source: origem,
+          target: destino,
+          label: simbolo
         }
       });
-    }
-  });
-
-  // Remove arestas que não existem mais
-  cy.edges().forEach(edge => {
-    const origem = edge.source().id();
-    const destino = edge.target().id();
-    const simbolo = edge.data('label');
-    const key = `${origem},${simbolo}`;
-    if (!transicoes[key] || transicoes[key] !== destino) {
-      cy.remove(edge);
     }
   });
 
@@ -179,8 +175,14 @@ function atualizarCanvas() {
     cy.$id(final).addClass('final');
   });
 
-  // Reaplica o layout para organizar
-  cy.layout({ name: 'circle' }).run();
+  // Só aplica layout automático se não houver posições salvas
+  if (Object.keys(nodePositions).length === 0) {
+    cy.layout({
+      name: 'circle',
+      fit: true,
+      padding: 30
+    }).run();
+  }
 }
 
 // Adicionar Estado
@@ -190,6 +192,13 @@ function adicionarEstado() {
     const nomeFormatado = nome.trim();
     if (!estados.includes(nomeFormatado)) {
       estados.push(nomeFormatado);
+
+      // Posiciona novo nó próximo ao centro
+      nodePositions[nomeFormatado] = {
+        x: 300 + (Math.random() * 100 - 50),
+        y: 200 + (Math.random() * 100 - 50)
+      };
+
       atualizarCanvas();
     } else {
       alert("Estado já existe!");
@@ -225,7 +234,7 @@ function definirInicial() {
     alert("Adicione estados primeiro!");
     return;
   }
-  
+
   const nome = prompt(`Qual estado será o inicial? (Estados: ${estados.join(', ')})`);
   if (nome && estados.includes(nome.trim())) {
     estadoInicial = nome.trim();
@@ -241,7 +250,7 @@ function definirFinal() {
     alert("Adicione estados primeiro!");
     return;
   }
-  
+
   const nome = prompt(`Qual estado será final? (Estados: ${estados.join(', ')})`);
   if (nome && estados.includes(nome.trim())) {
     if (!estadosFinais.includes(nome.trim())) {
@@ -261,6 +270,7 @@ function limparTudo() {
   transicoes = {};
   estadoInicial = null;
   estadosFinais = [];
+  nodePositions = {}; // Limpa posições também
   atualizarCanvas();
 }
 
@@ -278,17 +288,17 @@ function testarString() {
     alert("Defina um estado inicial primeiro!");
     return;
   }
-  
+
   if (estadosFinais.length === 0) {
     alert("Defina pelo menos um estado final!");
     return;
   }
-  
+
   if (entrada === '') {
     alert("Digite uma string para testar!");
     return;
   }
-  
+
   let estadoAtual = estadoInicial;
   const caminho = [estadoAtual];
 
@@ -350,24 +360,13 @@ function validarStringComAlfabeto(str, alfabeto) {
   return true;
 }
 
-function criarTransicao() {
-  const alfabeto = document.getElementById('alfabeto').value.split(',').map(s => s.trim());
-  const origem = prompt("Estado de origem:");
-  const simbolo = prompt("Símbolo:");
-  const destino = prompt("Estado de destino:");
-  if (!origem || !destino || !simbolo) {
-    alert("Preencha todos os campos!");
-    return;
-  }
-  if (!estados.includes(origem.trim()) || !estados.includes(destino.trim())) {
-    alert("Estados de origem/destino inválidos!");
-    return;
-  }
-  if (!alfabeto.includes(simbolo.trim())) {
-    alert("Símbolo não pertence ao alfabeto definido!");
-    return;
-  }
-  const chave = `${origem.trim()},${simbolo.trim()}`;
-  transicoes[chave] = destino.trim();
-  atualizarCanvas();
+// (Opcional) Botão para reorganizar estados
+function reorganizarEstados() {
+  nodePositions = {};
+  cy.layout({
+    name: 'circle',
+    fit: true,
+    padding: 30,
+    animate: true
+  }).run();
 }

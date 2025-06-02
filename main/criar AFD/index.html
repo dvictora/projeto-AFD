@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Criar e Testar AFD</h1>
+  <h1>🛠️ Criar e Testar AFD</h1>
   <div class="input-area" style="margin-bottom: 32px; background: #f8f9fa; padding: 18px 32px; border-radius: 12px; box-shadow: 0 1px 4px #0001;">
     <label for="alfabeto" class="form-label" style="font-weight:bold;">Defina o alfabeto:</label>
     <input type="text" class="form-control" id="alfabeto" placeholder="Ex: 0,1" />
   </div>
-    <a href="../index.html" style="margin-bottom: 20px; display: inline-block;">
-  Simulador de AFDs
+  <a href="../index.html" style="margin-bottom: 20px; display: inline-block;">
+    🧠 Simulador de AFDs
   </a>
 
   <div class="main-area">
@@ -23,10 +23,9 @@
       <button class="btn" onclick="definirInicial()">Definir Inicial ◇</button>
       <button class="btn" onclick="definirFinal()">Definir Final ◇</button>
       <button class="btn" onclick="limparTudo()">Limpar ⨉</button>
+      <button class="btn" onclick="reorganizarEstados()">Reorganizar ↻</button>
     </div>
     <div id="canvas" class="canvas-area" style="width:900px; height:500px;"></div>
-      <!-- Visualização do AFD será renderizada aqui -->
-    </div>
     <div class="input-area">
       <label for="entrada" class="form-label">Entrada:</label>
       <input type="text" class="form-control" id="entrada" placeholder="Ex: 0101">

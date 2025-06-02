@@ -1,124 +1,101 @@
-body {
-  background: #fff;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  padding: 0;
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 h1 {
-  font-weight: bold;
-  font-size: 2.5rem;
-  margin: 40px 0 30px 0;
-  letter-spacing: 1px;
+  text-align: center;
+  margin-top: 32px;
 }
+
 .main-area {
-  border: 2px solid #000;
-  border-radius: 16px;
-  background: #fff;
+  border: 2px  #000;
+  border-radius: 30px;
+  background: rgba(58, 6, 249, 0.058);
   padding: 40px 32px 32px 32px;
   width: 900px;
   max-width: 98vw;
   box-shadow: 0 2px 8px #0001;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .btn-group {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
-.btn-group .btn {
-  border-radius: 8px;
-  border: 1.5px solid #000;
-  font-weight: 500;
+
+.btn, .btn-primary {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: 1px solid #4338ca;
   background: #fff;
-  color: #222;
+  color: #4338ca;
+  cursor: pointer;
+  font-size: 16px;
   transition: background 0.2s, color 0.2s;
 }
-.btn-group .btn.active, .btn-group .btn:focus {
-  background: #0084FF;
+
+.btn-primary {
+  background: #2196f3;
   color: #fff;
-  border-color: #0084FF;
+  border: none;
 }
+
+.btn:hover, .btn-primary:hover {
+  background: #4338ca;
+  color: #fff;
+}
+
 .canvas-area {
-  border: 2px solid #000;
-  border-radius: 12px;
-  min-height: 320px;
+  width: 900px;
+  height: 500px;
+  margin: 0 auto 24px auto;
+  border: 2px solid #656363;
   background: #fff;
-  margin-bottom: 32px;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 10px;
 }
+
 .input-area {
+  margin: 24px auto;
+  max-width: 500px auto;
   display: flex;
-  align-items: center;
-  gap: 16px;
-  justify-content: center;
-  margin-bottom: 0;
+  gap: 8px;
 }
+
 .input-area label {
   font-weight: 500;
   font-size: 1.1rem;
 }
+
 .input-area input {
-  width: 320px;
+  width: 400px;
   border-radius: 8px;
   border: 1.5px solid #000;
   font-size: 1.1rem;
   padding: 8px 12px;
 }
+
 .input-area .btn-primary {
   background: #0084FF;
   border: 1.5px solid #0084FF;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight:600;
   font-size: 1.1rem;
   padding: 8px 32px;
   transition: background 0.2s;
 }
+
 .input-area .btn-primary:hover {
   background: #005fcc;
   border-color: #005fcc;
 }
-@media (max-width: 1000px) {
-  .main-area {
-    width: 98vw;
-    padding: 16px 4vw;
-  }
-}
-@media (max-width: 600px) {
-  .main-area {
-    padding: 8px 2vw;
-  }
-  .input-area input {
-    width: 100px;
-  }
-}
 
-body {
-  font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fc;
-  background-image: url('../images/FUNDO ABSTRATO.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: #333;
-  padding: 50px;
-  max-width: 1200px;
-  font-size: 18px;
-  margin: auto;
-}
-
-h1 {
-  font-size: 36px;
-  margin-bottom: 30px;
-  text-align: center;
+.input-area.destaque {
+  margin-bottom: 32px;
+  background: #f8f9fa;
+  padding: 18px 32px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px #0001;
 }
 
 label {
@@ -142,9 +119,9 @@ button {
   padding: 16px;
   border: none;
   border-radius: 8px;
-  width: 100%;
+  width: 20%;
   font-size: 18px;
-  margin-top: 40px;
+  margin-top: 10px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
@@ -160,4 +137,47 @@ button:hover {
   padding: 30px;
   margin-top: 40px;
   box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+#log {
+  margin-top: 16px;
+  text-align: center;
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.link-voltar {
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+@media (max-width: 1000px) {
+  .main-area {
+    width: 98vw;
+    padding: 16px 4vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-area {
+    padding: 8px 2vw;
+  }
+  .input-area input {
+    width: 100px;
+  }
+}
+
+
+body {
+  font-family: 'Montserrat', Tahoma, Verdana, sans-serif;
+  background-color: #f8f9fc;
+  background-image: url('../images/FUNDO ABSTRATO.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #333;
+  padding: 50px;
+  max-width: 1200px;
+  font-size: 18px;
+  margin: auto;
 }

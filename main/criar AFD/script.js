@@ -5,6 +5,8 @@ let estadoInicial = null;
 let estadosFinais = [];
 let cy;
 let nodePositions = {}; // NOVO: armazena posições dos nós
+let modoExclusao = false;
+let elementoSelecionado = null;
 
 document.addEventListener('DOMContentLoaded', function() {
   cy = cytoscape({
@@ -90,6 +92,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Manipula cliques nos nós para criar transições
   cy.on('tap', 'node', function(evt) {
+    if (modoExclusao) {
+      tratarCliqueExclusao(evt.target);
+      return;
+    }
     if (!criandoTransicao) return;
 
     const noClicado = evt.target;
@@ -118,6 +124,14 @@ document.addEventListener('DOMContentLoaded', function() {
       noOrigemTransicao = null;
       criandoTransicao = false;
     }
+  });
+
+  cy.on('tap', 'edge', function(evt) {
+    if (modoExclusao) {
+      tratarCliqueExclusao(evt.target);
+      return;
+    }
+    // ...seu código normal de clique em aresta...
   });
 });
 
@@ -370,3 +384,59 @@ function reorganizarEstados() {
     animate: true
   }).run();
 }
+
+// Novo: Ativar modo de exclusão
+function ativarModoExclusao() {
+  modoExclusao = true;
+  cy.nodes().style('border-color', '#ff0000');
+  cy.edges().style('line-color', '#ff0000');
+  alert("Modo de exclusão ativado. Clique no elemento que deseja remover.");
+}
+
+function desativarModoExclusao() {
+  modoExclusao = false;
+  cy.nodes().style('border-color', '#000'); // ou a cor padrão do seu projeto
+  cy.edges().style('line-color', '#000');   // ou a cor padrão do seu projeto
+  if (elementoSelecionado) {
+    elementoSelecionado.unselect();
+    elementoSelecionado = null;
+  }
+}
+
+function tratarCliqueExclusao(target) {
+  if (elementoSelecionado) {
+    elementoSelecionado.unselect();
+  }
+  target.select();
+  elementoSelecionado = target;
+
+  const tipo = target.isNode() ? 'estado' : 'transição';
+  const confirmacao = confirm(`Deseja remover este ${tipo}?`);
+
+  if (confirmacao) {
+    if (target.isNode()) {
+      removerEstado(target.id());
+    } else {
+      removerTransicao(target.data('source'), target.data('label'));
+    }
+    atualizarCanvas();
+  }
+  desativarModoExclusao();
+}
+
+function removerEstado(estado) {
+  estados = estados.filter(e => e !== estado);
+  Object.keys(transicoes).forEach(key => {
+    if (key.startsWith(estado + ',') || transicoes[key] === estado) {
+      delete transicoes[key];
+    }
+  });
+  if (estadoInicial === estado) estadoInicial = null;
+  estadosFinais = estadosFinais.filter(e => e !== estado);
+  delete nodePositions[estado];
+}
+
+function removerTransicao(origem, simbolo) {
+  delete transicoes[`${origem},${simbolo}`];
+}
+

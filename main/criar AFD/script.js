@@ -390,17 +390,24 @@ function ativarModoExclusao() {
   modoExclusao = true;
   cy.nodes().style('border-color', '#ff0000');
   cy.edges().style('line-color', '#ff0000');
-  alert("Modo de exclusão ativado. Clique no elemento que deseja remover.");
+  // Verifica se o usuário já pediu para não mostrar novamente
+  if (!localStorage.getItem('naoMostrarAlertaExclusao')) {
+    const naoMostrar = confirm(
+      "Modo de exclusão ativado. Clique no elemento que deseja remover.\n\nMarque OK para não mostrar novamente."
+    );
+    if (naoMostrar) {
+      localStorage.setItem('naoMostrarAlertaExclusao', '1');
+    }
+  }
 }
 
 function desativarModoExclusao() {
   modoExclusao = false;
-  cy.nodes().style('border-color', '#000'); // ou a cor padrão do seu projeto
-  cy.edges().style('line-color', '#000');   // ou a cor padrão do seu projeto
   if (elementoSelecionado) {
     elementoSelecionado.unselect();
     elementoSelecionado = null;
   }
+  atualizarCanvas(); // Restaura as cores corretas dos nós e arestas
 }
 
 function tratarCliqueExclusao(target) {

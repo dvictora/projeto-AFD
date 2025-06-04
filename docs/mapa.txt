@@ -16,11 +16,12 @@ projeto-AFD/
 │   │   ├── script.js
 │   │   └── style.css
 │   │
-│   └── simulador/            
-│       ├── index.html
-│       ├── script.js
-│       └── style.css
-│
+│   ├── simulador/            
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── style.css
+│   │
+│   └── README.md
 │            
 ├── docs/ 
 │   ├── AFD_EM_COD_PYTON.PY

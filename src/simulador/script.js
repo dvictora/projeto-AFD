@@ -148,21 +148,21 @@ document.getElementById("afdSelect").addEventListener("change", function () {
   // Atualize o caminho da imagem com base na seleção
   switch (selectedValue) {
     case "1":
-      dfaImage.src = "images/const_1.svg"; // Caminho para a imagem do AFD 1
+      dfaImage.src = "../../assets/imagens/const_1.svg"; // Caminho para a imagem do AFD 1
       break;
     case "2":
-      dfaImage.src = "images/const_2.svg"; // Caminho para a imagem do AFD 2
+      dfaImage.src = "../../assets/imagens/const_2.svg"; // Caminho para a imagem do AFD 2
       break;
     case "3":
-      dfaImage.src = "images/const_3.svg"; // Caminho para a imagem do AFD 3
+      dfaImage.src = "../../assets/imagens/const_3.svg"; // Caminho para a imagem do AFD 3
       break;
     case "4":
-      dfaImage.src = "images/const_4.svg"; // Caminho para a imagem do AFD 4
+      dfaImage.src = "../../assets/imagens/const_4.svg"; // Caminho para a imagem do AFD 4
       break;
     case "5":
-      dfaImage.src = "images/const_5.svg"; // Caminho para a imagem do AFD 5
+      dfaImage.src = "../../assets/imagens/const_.svg"; // Caminho para a imagem do AFD 5
       break;
     default:
-      dfaImage.src = "images/gif.gif"; // Caminho para a imagem padrão
+      dfaImage.src = "../../assets/imagens/gif.gif"; // Caminho para a imagem padrão
   }
 });

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de AFD</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .dashboard-card {
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra de navegação -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-project-diagram me-2"></i>
+        Automatos Finitos Determinísticos
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="exemplos.html">
+              <i class="fas fa-book me-1"></i> Exemplos
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <main class="container my-5">
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold">Simulador de Autômatos Finitos Determinísticos</h1>
+      <p class="lead text-muted">Crie, visualize e teste seus AFDs de forma interativa</p>
+    </div>
+
+    <!-- Cards de funcionalidades -->
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card dashboard-card h-100">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon text-primary">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <h3 class="h4">Criar AFD</h3>
+            <p>Construa seu autômato do zero com nossa ferramenta visual intuitiva.</p>
+            <a href="src/criar_afd/index.html" class="btn btn-primary mt-3">
+              Começar <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card dashboard-card h-100">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon text-success">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h3 class="h4">Exemplos Prontos</h3>
+            <p>Explore autômatos pré-configurados para aprender os conceitos básicos.</p>
+            <a href="src/simulador/index.html" class="btn btn-success mt-3">
+              Ver Exemplos <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card dashboard-card h-100">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon text-info">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="h4">Tutoriais</h3>
+            <p>Aprenda teoria dos autômatos com nossos guias passo a passo.</p>
+            <a href="tutoriais.html" class="btn btn-info mt-3">
+              Aprender <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção de últimas atividades -->
+    <section class="mt-5">
+      <div class="card">
+        <div class="card-header bg-light">
+          <h2 class="h5 mb-0">Últimos AFDs Criados</h2>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">AFD - Linguagem binária com paridade</h5>
+                <small>3 dias atrás</small>
+              </div>
+              <p class="mb-1">Reconhece cadeias binárias com número par de 1s</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">AFD - Vogais em ordem</h5>
+                <small>1 semana atrás</small>
+              </div>
+              <p class="mb-1">Reconhece palavras com vogais em ordem crescente</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">AFD - Números binários</h5>
+                <small>2 semanas atrás</small>
+              </div>
+              <p class="mb-1">Aceita apenas sequências de 0s e 1s</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="mb-0">&copy; 2023 Simulador AFD. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

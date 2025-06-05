@@ -3,13 +3,14 @@ h1 {
   margin-top: 32px;
 }
 
+
 .main-area {
   border: 2px  #000;
   border-radius: 30px;
-  background: rgba(58, 6, 249, 0.058);
+  background: #0d6dfd1f;
   padding: 40px 32px 32px 32px;
-  width: 900px;
-  max-width: 98vw;
+  max-width: 1000px;
+  width: 98vw;
   box-shadow: 0 2px 8px #0001;
   margin-bottom: 30px;
   margin-left: auto;
@@ -26,10 +27,10 @@ h1 {
 
 .btn, .btn-primary {
   padding: 8px 18px;
-  border-radius: 6px;
-  border: 1px solid #4338ca;
+  border-radius: 10px;
+  border: 1px solid #0d6efd;
   background: #fff;
-  color: #4338ca;
+  color: #0d6efd;
   cursor: pointer;
   font-size: 16px;
   transition: background 0.2s, color 0.2s;
@@ -42,12 +43,14 @@ h1 {
 }
 
 .btn:hover, .btn-primary:hover {
-  background: #4338ca;
+  background: #0d6efd;
   color: #fff;
 }
 
 .canvas-area {
-  width: 900px;
+  box-sizing: content-box;
+  max-width: 900px;
+  width: 98vw;
   height: 500px;
   margin: 0 auto 24px auto;
   border: 2px solid #656363;
@@ -57,7 +60,7 @@ h1 {
 
 .input-area {
   margin: 24px auto;
-  max-width: 500px auto;
+  max-width: 500px;
   display: flex;
   gap: 8px;
 }
@@ -79,9 +82,9 @@ h1 {
   background: #0084FF;
   border: 1.5px solid #0084FF;
   border-radius: 8px;
-  font-weight:600;
+  font-weight:400;
   font-size: 1.1rem;
-  padding: 8px 32px;
+  padding: 8px auto 40px;
   transition: background 0.2s;
 }
 
@@ -114,11 +117,11 @@ input, select {
 }
 
 button {
-  background-color: #4f46e5;
+  background-color: #0d6efd;
   color: white;
   padding: 16px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   width: 20%;
   font-size: 18px;
   margin-top: 10px;
@@ -128,7 +131,7 @@ button {
 }
 
 button:hover {
-  background-color: #4338ca;
+  background-color: #0d6efd;
 }
 
 .result-box {
@@ -153,17 +156,41 @@ button:hover {
 
 @media (max-width: 1000px) {
   .main-area {
+    max-width: 98vw;
     width: 98vw;
     padding: 16px 4vw;
+  }
+  .canvas-area {
+    max-width: 98vw;
+    width: 98vw;
+    height: 50vw;
+    min-height: 200px;
   }
 }
 
 @media (max-width: 600px) {
   .main-area {
     padding: 8px 2vw;
+    border-radius: 16px;
+  }
+  .canvas-area {
+    height: 200px;
+    min-width: 120px;
+    min-height: 120px;
+  }
+  .input-area {
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 2vw;
+  }
+  .btn, .btn-primary, button {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
   }
   .input-area input {
-    width: 100px;
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -171,7 +198,7 @@ button:hover {
 body {
   font-family: 'Montserrat', Tahoma, Verdana, sans-serif;
   background-color: #f8f9fc;
-  background-image: url('../images/FUNDO ABSTRATO.jpg');
+  background-image: url('../../assets/imagens/fundo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

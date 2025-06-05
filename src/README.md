@@ -15,11 +15,12 @@ Este projeto é um simulador de Autômatos Finitos Determinísticos (AFDs). Ele 
 
 ## Como Usar
 
-1. Abra o arquivo `index.html` em um navegador para acessar a página principal do simulador.
-2. Insira a string que deseja testar, o estado inicial e os estados de aceitação.
-3. Selecione um AFD pré-definido e clique no botão **Executar** para testar a string.
-4. Para criar um novo AFD, acesse a página `create-dfa.html` e preencha os campos necessários para definir seu AFD.
-5. Salve ou teste o AFD criado conforme necessário.
+1. Acesse a página principal (`index.html`) para visualizar o dashboard do projeto.
+2. Para testar um AFD existente, utilize a opção de exemplos ou simulador disponível no menu.
+3. Para criar seu próprio AFD, acesse a página de criação (por exemplo, `src/criar_afd/index.html` ou pelo botão "Criar AFD" no dashboard).
+4. Na interface de criação, adicione estados, defina o alfabeto, crie transições, marque o estado inicial e os estados finais.
+5. Insira a string de entrada e clique em **Executar** para simular o funcionamento do seu AFD.
+6. Você pode salvar, limpar ou reorganizar o autômato conforme desejar pela própria interface.
 
 
 ## Contribuições

@@ -1,0 +1,31 @@
+projeto-AFD/
+│ 
+├── assets/                  
+│   └── images/
+│       ├── const_1.svg
+│       ├── const_2.svg
+│       ├── const_3.svg
+│       ├── const_4.svg
+│       ├── const_5.svg
+│       ├── engrenagem.png
+│       └── gif.gif      
+│
+├── src/                    
+│   ├── criar_afd/            
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── style.css
+│   │
+│   ├── simulador/            
+│   │   ├── index.html
+│   │   ├── script.js
+│   │   └── style.css
+│   │
+│   └── README.md
+│            
+├── docs/ 
+│   ├── AFD_EM_COD_PYTON.PY
+│   └── mapa.txt
+│
+├── index.html               
+├── README.md  

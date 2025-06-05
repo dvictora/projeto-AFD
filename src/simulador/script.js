@@ -145,24 +145,26 @@ document.getElementById("afdSelect").addEventListener("change", function () {
   const selectedValue = this.value;
   const dfaImage = document.getElementById("dfaImage");
 
-  // Atualize o caminho da imagem com base na seleção
+  let imgSrc = "";
   switch (selectedValue) {
     case "1":
-      dfaImage.src = "images/const_1.svg"; // Caminho para a imagem do AFD 1
+      imgSrc = "../../assets/imagens/const_1.svg";
       break;
     case "2":
-      dfaImage.src = "images/const_2.svg"; // Caminho para a imagem do AFD 2
+      imgSrc = "../../assets/imagens/const_2.svg";
       break;
     case "3":
-      dfaImage.src = "images/const_3.svg"; // Caminho para a imagem do AFD 3
+      imgSrc = "../../assets/imagens/const_3.svg";
       break;
     case "4":
-      dfaImage.src = "images/const_4.svg"; // Caminho para a imagem do AFD 4
+      imgSrc = "../../assets/imagens/const_4.svg";
       break;
     case "5":
-      dfaImage.src = "images/const_5.svg"; // Caminho para a imagem do AFD 5
+      imgSrc = "../../assets/imagens/const_5.svg";
       break;
     default:
-      dfaImage.src = "images/gif.gif"; // Caminho para a imagem padrão
+      imgSrc = classs="loader"; // Imagem padrão ou loader
   }
+  dfaImage.innerHTML = `<img src="${imgSrc}" alt="DFA" style="max-width:100%;height:auto;">`;
+  dfaImage.classList.remove("loader"); 
 });

@@ -4,20 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de AFDs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <!-- Estilo da Engrenagem Girando -->
 </head>
 <body>
+  
 
   <!-- Engrenagem -->
   <div class="gear-spinner">
-    <img src="images/engrenagem.png" alt="Engrenagem Girando" />
+    <img src="../../assets/imagens/engrenagem.png" alt="Engrenagem Girando" />
   </div>
 
-  <h1><b>🧠 Simulador de AFDs</b></h1>
+  <h1>
+    <i class="fas fa-book-open text-success"></i>
+     Simulador de AFDs
+    </h1>
 
-  <a href="criar AFD/index.html" style="margin-bottom: 20px; display: inline-block;">
-  🛠️ Criar e testar meu próprio AFD
+  <a href="../../index.html" style="margin-bottom: 20px; display: inline-block;">
+  Voltar para o Início
   </a>
 
   <!-- Fase de coleta de dados -->
@@ -45,13 +51,10 @@
   <button onclick="testDFA()">Executar</button>
 
   <div class="result-box">
-    <h3>
-      <h3>DFA Definida:</h3>
-      <img id="dfaImage" src="images/gif.gif" alt="DFA Definida" style="max-width: 100%; height: auto;">
-      <!-- O grafico da AFD vai ser exibido aqui -->
-    </h3>
-    <div class="dfa-path">
-    </div>
+    <h3>DFA Definida:</h3>
+    <div id="dfaImage" class="loader"></div>
+    <!-- O gráfico da AFD vai ser exibido aqui -->
+    <div class="dfa-path"></div>
 
     <h3>Visualização de Estados:</h3>
     <ul id="history">

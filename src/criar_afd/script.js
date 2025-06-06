@@ -447,3 +447,49 @@ function removerTransicao(origem, simbolo) {
   delete transicoes[`${origem},${simbolo}`];
 }
 
+const estruturaAFD = {
+  estados: [...estados],
+  transicoes: {...transicoes},
+  estadoInicial: estadoInicial,
+  estadosFinais: [...estadosFinais]
+};
+
+// Função para salvar AFD no histórico
+function salvarAFD(nomeAFD, descricao, estruturaAFD) {
+  const historico = JSON.parse(localStorage.getItem("historicoAFDs")) || [];
+  const id = Date.now(); // ID único baseado no timestamp
+  historico.unshift({
+    id,
+    nome: nomeAFD,
+    descricao: descricao,
+    afd: estruturaAFD,
+    data: new Date().toISOString(),
+  });
+  localStorage.setItem("historicoAFDs", JSON.stringify(historico));
+}
+
+
+// Definir nome, descricao e salvar AFD
+
+document.getElementById('btnSalvarAFD').onclick = function() {
+  const nome = prompt("Digite um nome para o AFD:");
+  if (!nome || nome.trim() === "") {
+    alert("Nome é obrigatório!");
+    return;
+  }
+  const descricao = prompt("Digite uma descrição para o AFD:");
+  if (!descricao || descricao.trim() === "") {
+    alert("Descrição é obrigatória!");
+    return;
+  }
+  // Monta a estrutura do AFD atual
+  const estruturaAFD = {
+    estados: [...estados],
+    transicoes: {...transicoes},
+    estadoInicial: estadoInicial,
+    estadosFinais: [...estadosFinais]
+  };
+  salvarAFD(nome.trim(), descricao.trim(), estruturaAFD);
+  alert("AFD salvo com sucesso!");
+};
+

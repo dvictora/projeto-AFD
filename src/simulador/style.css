@@ -89,6 +89,13 @@ button:hover {
   box-shadow: 0 0 12px rgba(0,0,0,0.1);
 }
 
+#dfaImage {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 30px; /* ou o valor que preferir */
+}
+
 .dfa-path {
   display: flex;
   align-items: center;

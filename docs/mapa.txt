@@ -8,7 +8,7 @@ projeto-AFD/
 │       ├── const_4.svg
 │       ├── const_5.svg
 │       ├── engrenagem.png
-│       └── gif.gif      
+│       └── fundo.jpg     
 │
 ├── src/                    
 │   ├── criar_afd/            

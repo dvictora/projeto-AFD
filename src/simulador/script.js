@@ -93,6 +93,7 @@ function testDFA() {
   const inputStr = document.getElementById("inputString").value.trim();
   const startState = document.getElementById("startState").value.trim();
   const acceptStates = document.getElementById("acceptStates").value.trim();
+  const selectedDFA = document.getElementById("afdSelect").value;
 
   // Validação obrigatória para inicial e finais
   if (!startState) {
@@ -144,6 +145,16 @@ function testDFA() {
     alert("Configuração do AFD não encontrada.");
     return;
   }
+
+  const transitions = dfaConfig.transitions;
+  const start = startState;
+  const accepts = acceptStates.split(",").map(s => s.trim());
+  const { accepted, history } = simulateDFA(
+    transitions,
+    start,
+    accepts,
+    inputStr
+  );
 
   // Atualizar Visualização de estados
   const historyUl = document.getElementById("history");

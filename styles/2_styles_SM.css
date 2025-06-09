@@ -31,7 +31,7 @@
 body {
   font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8f9fc;
-  background-image: url('../../assets/imagens/fundo.jpg');
+  background-image: url('../assets/imagens/fundo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

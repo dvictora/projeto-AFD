@@ -12,7 +12,11 @@ Este projeto tem como objetivo implementar e demonstrar o funcionamento de um Au
    ```
 2. Acesse a pasta com vscode projeto_AFD:
    ```
-   start index.html
+   start "C:\Users\Brasil\Downloads\projeto-AFD\tabs\Dashboard.html"
+   ```
+   ou 
+   ```
+   start "" "C:\Users\Brasil\Downloads\projeto-AFD-main\tabs\Dashboard.html"
    ```
 3. Siga as instruções específicas do projeto para executar o código (consulte a documentação ou o arquivo principal).
 

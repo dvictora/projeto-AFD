@@ -253,19 +253,19 @@ document.getElementById("afdSelect").addEventListener("change", function () {
   let imgSrc = "";
   switch (selectedValue) {
     case "1":
-      imgSrc = "../../assets/imagens/const_1.svg";
+      imgSrc = "../assets/imagens/const_1.svg";
       break;
     case "2":
-      imgSrc = "../../assets/imagens/const_2.svg";
+      imgSrc = "../assets/imagens/const_2.svg";
       break;
     case "3":
-      imgSrc = "../../assets/imagens/const_3.svg";
+      imgSrc = "../assets/imagens/const_3.svg";
       break;
     case "4":
-      imgSrc = "../../assets/imagens/const_4.svg";
+      imgSrc = "../assets/imagens/const_4.svg";
       break;
     case "5":
-      imgSrc = "../../assets/imagens/const_5.svg";
+      imgSrc = "../assets/imagens/const_5.svg";
       break;
     default:
       dfaImage.innerHTML = '<div class="loader"></div>';

@@ -1,0 +1,211 @@
+h1 {
+  text-align: center;
+  margin-top: 32px;
+}
+
+
+.main-area {
+  border: 2px  #000;
+  border-radius: 30px;
+  background: #0d6dfd1f;
+  padding: 40px 32px 32px 32px;
+  max-width: 1000px;
+  width: 98vw;
+  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.btn, .btn-primary {
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1px solid #0d6efd;
+  background: #fff;
+  color: #0d6efd;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-primary {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+}
+
+.btn:hover, .btn-primary:hover {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.canvas-area {
+  box-sizing: content-box;
+  max-width: 900px;
+  width: 98vw;
+  height: 500px;
+  margin: 0 auto 24px auto;
+  border: 2px solid #656363;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.input-area {
+  margin: 24px auto;
+  max-width: 500px;
+  display: flex;
+  gap: 8px;
+}
+
+.input-area label {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.input-area input {
+  width: 400px;
+  border-radius: 8px;
+  border: 1.5px solid #000;
+  font-size: 1.1rem;
+  padding: 8px 12px;
+}
+
+.input-area .btn-primary {
+  background: #0084FF;
+  border: 1.5px solid #0084FF;
+  border-radius: 8px;
+  font-weight:400;
+  font-size: 1.1rem;
+  padding: 8px auto 40px;
+  transition: background 0.2s;
+}
+
+.input-area .btn-primary:hover {
+  background: #005fcc;
+  border-color: #005fcc;
+}
+
+.input-area.destaque {
+  margin-bottom: 32px;
+  background: #f8f9fa;
+  padding: 18px 32px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px #0001;
+}
+
+label {
+  display: block;
+  margin-top: 30px;
+  font-weight: 600;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #0d6efd;
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  width: 20%;
+  font-size: 18px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0d6efd;
+}
+
+.result-box {
+  background: #eef1fa;
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 40px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+#log {
+  margin-top: 16px;
+  text-align: center;
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.link-voltar {
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+@media (max-width: 1000px) {
+  .main-area {
+    max-width: 98vw;
+    width: 98vw;
+    padding: 16px 4vw;
+  }
+  .canvas-area {
+    max-width: 98vw;
+    width: 98vw;
+    height: 50vw;
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-area {
+    padding: 8px 2vw;
+    border-radius: 16px;
+  }
+  .canvas-area {
+    height: 200px;
+    min-width: 120px;
+    min-height: 120px;
+  }
+  .input-area {
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 2vw;
+  }
+  .btn, .btn-primary, button {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
+  }
+  .input-area input {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+body {
+  font-family: 'Montserrat', Tahoma, Verdana, sans-serif;
+  background-color: #f8f9fc;
+  background-image: url('../../assets/imagens/fundo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #333;
+  padding: 50px;
+  max-width: 1200px;
+  font-size: 18px;
+  margin: auto;
+}
+

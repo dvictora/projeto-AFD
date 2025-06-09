@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de AFDs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../styles/2_styles_SM.css">
+  <!-- Estilo da Engrenagem Girando -->
+</head>
+<body>
+  
+
+  <!-- Engrenagem -->
+  <div class="gear-spinner">
+    <img src="../../assets/imagens/engrenagem.png" alt="Engrenagem Girando" />
+  </div>
+
+  <h1>
+    <i class="fas fa-book-open text-success"></i>
+     Simulador de AFDs
+    </h1>
+
+  <a href="../tabs/Dashboard.html" style="margin-bottom: 20px; display: inline-block;">
+  Voltar para o Início
+  </a>
+
+  <!-- Fase de coleta de dados -->
+   
+  <label for="inputString">Escreva a sua string:</label>
+  <input type="text" id="inputString" placeholder="ex.: 0101010" />
+
+  <label for="startState">Escreva o estado inicial:</label>
+  <input type="text" id="startState" placeholder="ex.: q0" />
+
+  <label for="acceptStates">Escreva o estado de Aceitação:</label>
+  <input type="text" id="acceptStates" placeholder="ex.: q1,q2" />
+
+  <label for="afdSelect">Escolha o AFD base:</label>
+  <!-- AFDs disponíveis para teste -->
+  <select id="afdSelect">
+    <option value="" disabled selected>Selecione uma opção</option>
+    <option value="1">Termina com 0</option>
+    <option value="2">Número par de 0s</option>
+    <option value="3">Exatamente dois 1s</option>
+    <option value="4">Começa e termina com mesmo símbolo</option>
+    <option value="5">Começa e termina com símbolo diferentes</option>
+  </select>
+
+  <button onclick="testDFA()">Executar</button>
+
+  <div class="result-box">
+    <h3>DFA Definida:</h3>
+    <div id="dfaImage" class="loader"></div>
+    <!-- O gráfico da AFD vai ser exibido aqui -->
+    <div class="dfa-path"></div>
+
+    <h3>Visualização de Estados:</h3>
+    <ul id="history">
+      <!-- O acompanhamento vai ser listados aqui -->
+    </ul>
+
+    <h3>Histórico dos Testes Realizados:</h3>
+    <ul id="testHistory">
+    <!-- Resultados dos testes serão adicionados aqui -->
+  </ul>
+  </div>
+  <script src="../scripts/2_Script_SM.js"></script>
+
+</body>
+</html>

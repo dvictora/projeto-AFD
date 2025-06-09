@@ -8,24 +8,24 @@ projeto-AFD/
 │       ├── const_4.svg
 │       ├── const_5.svg
 │       ├── engrenagem.png
-│       └── fundo.jpg     
-│
-├── src/                    
-│   ├── criar_afd/            
-│   │   ├── index.html
-│   │   ├── script.js
-│   │   └── style.css
-│   │
-│   ├── simulador/            
-│   │   ├── index.html
-│   │   ├── script.js
-│   │   └── style.css
-│   │
-│   └── README.md
+│       └── fundo.jpg
 │            
 ├── docs/ 
 │   ├── AFD_EM_COD_PYTON.PY
-│   └── mapa.txt
+│   └── mapa.txt    
 │
-├── index.html               
+├── scripts/                    
+│   ├── 1_Script_CA.js              
+│   └── 2_Script_SM.js            
+│            
+├── styles/ 
+│   ├── 1_style_CA.css
+│   └── 2_style_SM.css
+│
+├── tabs/ 
+│   ├── Criar_AFD(CA).html
+│   ├── Dashboard.html
+│   ├── README.md
+│   └── Simulador(SM).html
+│               
 ├── README.md  
